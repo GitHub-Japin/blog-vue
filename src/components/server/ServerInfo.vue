@@ -25,7 +25,8 @@
       <el-menu :default-active="$route.path" router active-text-color="#FF6666" class="el-menu-demo" mode="horizontal">
         <el-menu-item key="0" index="/welcome">欢迎页面</el-menu-item>
         <el-menu-item key="1" index="/userInfo">用户管理</el-menu-item>
-        <el-menu-item key="2" index="/blogInfo">博客管理</el-menu-item>
+        <el-menu-item key="2" index="/categoryInfo">分类管理</el-menu-item>
+        <el-menu-item key="3" index="/blogInfo">博客管理</el-menu-item>
       </el-menu>
       <el-main>
         <!--类似于iframe标签效果，重定向后的内容嵌入此处-->

@@ -14,7 +14,8 @@
         <el-table-column label="文章id" prop="id" width="75"/>
         <el-table-column label="创建者名" prop="username" width="auto"/>
         <el-table-column label="文章标题" prop="title" width="auto"/>
-        <el-table-column label="文章摘要" prop="description" width="auto"/>
+        <el-table-column label="文章分类" prop="categoryname" width="auto"/>
+<!--        <el-table-column label="文章摘要" prop="description" width="auto"/>-->
 
         <el-table-column label="文章内容">
           <template slot-scope="scope">

@@ -23,6 +23,7 @@
               </router-link>
             </h4>
             <div style="font-size:10px">博主名：{{ blog.username }}</div>
+            <div style="font-size:10px">所属分类：{{ blog.categoryname }}</div>
             <p>{{ blog.description }}</p>
           </el-card>
         </el-timeline-item>

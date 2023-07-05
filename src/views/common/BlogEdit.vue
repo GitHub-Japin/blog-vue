@@ -7,6 +7,13 @@
           <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
 
+        <el-form-item label="分类:" prop="categoryId">
+          <el-select v-model="ruleForm.categoryId" placeholder="请选择分类">
+            <el-option v-for="(item,index) in categoryList" :key="index" :label="item.categoryId" :value="item.categoryname" :disabled="true"/>
+<!--            <el-option v-for="item in categoryList" :value="item.categoryId" :label="item"></el-option>-->
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="摘要" prop="description">
           <el-input type="textarea" v-model="ruleForm.description"></el-input>
         </el-form-item>
@@ -14,6 +21,7 @@
         <el-form-item label="内容" prop="content">
           <mavon-editor v-model="ruleForm.content"></mavon-editor>
         </el-form-item>
+
 
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">创建</el-button>
@@ -32,9 +40,11 @@ export default {
   components: { Header },
   data () {
     return {
+      categoryList: [],
       ruleForm: {
         id: '',
         title: '',
+        categoryId:'',
         description: '',
         content: ''
       },
@@ -43,7 +53,9 @@ export default {
           { required: true, message: '请输入标题', trigger: 'blur' }
           // { min: 3, max: 5, message: '长度在 3 到 15 个字符', trigger: 'blur' }
         ],
-
+        categoryId: [
+          { required: false, message: '请选择分类', trigger: 'change'}
+        ],
         description: [
           { required: true, message: '请输入摘要', trigger: 'blur' }
         ],
@@ -54,7 +66,17 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
+    async getCategory(){
+      this.$axios.get("/category/list").then(res => {
+        this.categoryList= res.data.data;
+        console.log(res.data+"-------------------")
+        console.log(res.data.data+"-------------------")
+      }, error => {
+        this.$message.error('请求出错了：' + error)
+      })
+    },
+
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios.post('/blog/edit', this.ruleForm, {
@@ -76,21 +98,23 @@ export default {
         }
       })
     },
-    resetForm (formName) {
+    resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-      goBack() {
+    goBack() {
 // 这个判断用来解决这种情况，当用户没有上一条路由的历史记录，出现点击返回按钮没有反应时，
 // 下面的代码用来判断有没有上一条路由的历史记录   如果没有则返回首页
-        if (window.history.length <= 1) {
-          this.$router.push({ path: "/zh-CN/home" });
-          return false;
-        } else {
-          this.$router.go(-1);
-        }
-    }
+      if (window.history.length <= 1) {
+        this.$router.push({path: "/zh-CN/home"});
+        return false;
+      } else {
+        this.$router.go(-1);
+      }
+    },
+
   },
   created () {//回显
+    this.getCategory()
     // 获取动态路由的 blogId
     const blogId = this.$route.params.blogId
     console.log(blogId)
@@ -99,6 +123,7 @@ export default {
         const blog = res.data.data
         this.ruleForm.id = blog.id
         this.ruleForm.title = blog.title
+        this.ruleForm.categoryId =blog.categoryId
         this.ruleForm.description = blog.description
         this.ruleForm.content = blog.content
       })
@@ -112,34 +137,3 @@ export default {
   text-align: center;
 }
 </style>
-<!--init() {
-      const userInfo = sessionStorage.getItem("userInfo")
-      const username = JSON.parse(userInfo).username//反序列化
-      // const name = JSON.stringify(username);//序列化
-      if (username === null) {
-        this.$message.warning('请先登录账号...')
-        return
-      } else if (username !== "admin") {
-        console.info("--------this.username------------------" + username)
-        this.$message.warning('当前账号不是管理员，不加载数据')
-        return
-      } else {
-        const params = {
-          currentPage: this.page,
-          pageSize: this.pageSize,
-          name: this.input ? this.input : undefined
-        }
-        this.$axios.get("/user/page", {
-          params: params,
-          headers: {
-            'Authorization': localStorage.getItem('token')
-          }
-        }).then(res => {
-          console.log(res)
-          this.tableData = res.data.data.records || [];
-          this.counts = res.data.data.total
-        }, error => {
-          this.$message.error('请求出错了：' + error)
-        })
-      }
-    },-->

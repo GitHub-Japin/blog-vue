@@ -33,6 +33,7 @@ export default {
       blog: {
         id: '',
         username: '',
+        categoryname:'',
         title: '',
         content: '',
         description: ''

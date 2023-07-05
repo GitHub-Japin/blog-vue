@@ -59,6 +59,11 @@ export default new Router({
         import("../views/server/Welcome.vue")
     },
     {
+      path: "/categoryInfo",
+      component: () =>
+        import("../views/server/categoryInfo.vue")
+    },
+    {
       path: "/blogInfo",
       component: () =>
         import("../views/server/BlogInfo.vue")
