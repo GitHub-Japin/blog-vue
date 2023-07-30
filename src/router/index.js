@@ -64,6 +64,11 @@ export default new Router({
         import("../views/server/categoryInfo.vue")
     },
     {
+      path: "/EchartsInfo",
+      component: () =>
+        import("../views/server/EchartsInfo.vue")
+    },
+    {
       path: "/blogInfo",
       component: () =>
         import("../views/server/BlogInfo.vue")

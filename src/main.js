@@ -9,10 +9,11 @@ import router from './router'
 // 引入element-ui依赖
 import element from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
-
+// 引入echarts
+import *as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 // 引入axios依赖
 import axios from 'axios'
-
 // 引入自定义axios.js
 import "./axios.js"
 import './permission.js' // 路由拦截
