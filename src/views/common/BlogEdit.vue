@@ -9,7 +9,7 @@
 
         <el-form-item label="分类:" prop="categoryId">
           <el-select v-model="ruleForm.categoryId" placeholder="请选择分类">
-            <el-option v-for="(item,index) in categoryList" :key="index" :label="item.categoryId" :value="item.categoryname" :disabled="true"/>
+            <el-option v-for="(item,index) in categoryList" :key="index" :label="item.categoryname" :value="item.id" :disabled="false"/>
 <!--            <el-option v-for="item in categoryList" :value="item.categoryId" :label="item"></el-option>-->
           </el-select>
         </el-form-item>
