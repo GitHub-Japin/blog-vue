@@ -25,6 +25,7 @@
             <div style="font-size:10px">博主名：{{ blog.username }}</div>
             <div style="font-size:10px">所属分类：{{ blog.categoryname }}</div>
             <p>{{ blog.description }}</p>
+            <h5><router-link :to="{  name: 'commentsDetail', params: {blogId: blog.id}}">查看评论</router-link></h5>
           </el-card>
         </el-timeline-item>
       </el-timeline>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/views/client/ClientLogin'
 import Blogs from '@/views/client/Blogs'
 import BlogDetail from '@/views/client/BlogDetail'
+import commentsDetail from '@/views/client/commentsDetail'
 
 import BlogEdit from '@/views/common/BlogEdit'
 import ServerInfo from "../components/server/ServerInfo";
@@ -38,6 +39,11 @@ export default new Router({
       path: '/blog/:blogId',
       name: 'BlogDetail',
       component: BlogDetail
+    },
+    {
+      path: '/blog/:blogId/comments',
+      name: 'commentsDetail',
+      component: commentsDetail
     },
     {
       path: '/blog/:blogId/edit',
