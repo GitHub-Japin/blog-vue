@@ -27,6 +27,7 @@
         <el-menu-item key="1" index="/userInfo">用户管理</el-menu-item>
         <el-menu-item key="2" index="/categoryInfo">分类管理</el-menu-item>
         <el-menu-item key="3" index="/blogInfo">博客管理</el-menu-item>
+        <el-menu-item key="3" index="/LogInfo">日志管理</el-menu-item>
         <el-menu-item key="4" index="/EchartsInfo">统计管理</el-menu-item>
 <!--        <el-menu-item key="5" index="/notice">公告管理</el-menu-item>-->
       </el-menu>
