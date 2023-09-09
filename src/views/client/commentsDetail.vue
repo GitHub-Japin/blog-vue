@@ -8,6 +8,7 @@
         <div style="margin: 10px 0">
           <el-input type="textarea" placeholder="请输入评论" v-model="comment.content"></el-input>
           <div style="text-align: right; margin: 10px 0">
+            <el-button type="primary" @click="goBack">返回上一级</el-button>
             <el-button type="primary" @click="submit">提交</el-button>
           </div>
         </div>
@@ -134,6 +135,16 @@ export default {
           this.dialogFormVisible = false
         }
       })
+    },
+    goBack() {
+      // 这个判断用来解决这种情况，当用户没有上一条路由的历史记录，出现点击返回按钮没有反应时，
+      // 下面的代码用来判断有没有上一条路由的历史记录   如果没有则返回首页
+      if (window.history.length <= 1) {
+        this.$router.push({ path: "/zh-CN/home" });
+        return false;
+      } else {
+        this.$router.go(-1);
+      }
     },
     submit() {
       fetch("comment", {
