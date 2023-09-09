@@ -21,7 +21,11 @@ axios.interceptors.response.use(response=>{
       return response
     }else{
         //挂靠main.js所以不能使用this.$  --->Element             duration--->超时时间2s就消失
-        Element.Message.error(res.msg,{duration : 2*1000})
+        Element.Message.error({
+          message:res.msg,
+          duration : 1000,
+          showClose: true,
+        })
         //返回一个异常提示就不会继续往下走了 不+的话 res=>的里面 还是会继续走的
         return Promise.reject(response.data.msg)
     }
@@ -36,7 +40,12 @@ axios.interceptors.response.use(response=>{
       store.commit('REMOVE_INFO')//清空token userinfo
       router.push("/login")  //跳转登录页面
     }
-    Element.Message.error(error.message)//全局消息
+    Element.Message.error({
+      message:error.message,
+      duration : 1000,
+      showClose: true,
+    })//全局消息
+    // Element.Message.error(error.message)//全局消息
 
     return Promise.reject(error) //抛出异常, 阻止进入"$axios.post(.."
   }
