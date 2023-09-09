@@ -67,7 +67,7 @@ export default {
         this.pageSize = data.size
         this.total = data.total
       }, error => {
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       })
     },
     handleSizeChange(val) {

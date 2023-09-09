@@ -63,7 +63,7 @@ export default {
         chart.setOption(option)
       } catch (error) {
         console.error(error)
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       }
     },
     async getData() {
@@ -73,7 +73,7 @@ export default {
           this.drawChart();
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     },
     drawChart() {
@@ -134,7 +134,7 @@ export default {
         chart.setOption(option)
       } catch (error) {
         console.error(error)
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       }
     },
     async getUData() {
@@ -144,7 +144,7 @@ export default {
           this.drawUChart();
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     },
     drawUChart() {

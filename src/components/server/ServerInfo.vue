@@ -114,7 +114,7 @@ export default {
         this.showLoginForm=false
 
       }).catch(err=>{
-        this.$message.error('后端服务器无响应！')
+        // this.$message.error('后端服务器无响应！')
       })
     },
     logout() {

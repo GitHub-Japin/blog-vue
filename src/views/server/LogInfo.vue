@@ -62,7 +62,7 @@ export default {
         this.tableData = res.data.data.records || [];
         this.counts = res.data.data.total
       }, error => {
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       })
     },
     handleQuery() {
@@ -82,7 +82,7 @@ export default {
           this.$message.success('已删除')
           this.handleQuery()
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       })
     },

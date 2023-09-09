@@ -152,7 +152,7 @@ export default {
           this.tableData = res.data.data.records || [];
           this.counts = res.data.data.total
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       }
     },
@@ -182,10 +182,10 @@ export default {
             this.$message.success('更新成功！')
             this.handleQuery()
           }, error => {
-            this.$message.error('请求出错了：' + error)
+            // this.$message.error('请求出错了：' + error)
           })
         } else {
-          console.log('error submit!!');
+          // console.log('error submit!!');
           return false;
         }
       })
@@ -203,10 +203,10 @@ export default {
             this.$message.success('添加成功！')
             this.handleQuery()
           }, error => {
-            this.$message.error('请求出错了：' + error)
+            // this.$message.error('请求出错了：' + error)
           })
         } else {
-          console.log('error submit!!');
+          // console.log('error submit!!');
           return false;
         }
       })
@@ -251,7 +251,7 @@ export default {
           this.$message.success('删除成功！')
           this.handleQuery()
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       })
     },
@@ -274,7 +274,7 @@ export default {
           this.$message.success('状态已经更改成功！')
           this.handleQuery()
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       })
     },

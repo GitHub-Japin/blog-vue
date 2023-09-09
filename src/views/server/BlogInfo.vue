@@ -90,7 +90,7 @@ export default {
         this.tableData = res.data.data.records || [];
         this.counts = res.data.data.total
       }, error => {
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       })
     },
 
@@ -110,7 +110,7 @@ export default {
           confirmButtonText: '确定',
         })
       }, error => {
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       })
     },
 
@@ -135,7 +135,7 @@ export default {
           this.$message.success('该博客已删除')
           this.handleQuery()
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       })
     },
@@ -158,7 +158,7 @@ export default {
           this.$message.success('状态已经更改成功！')
           this.handleQuery()
         }, error => {
-          this.$message.error('请求出错了：' + error)
+          // this.$message.error('请求出错了：' + error)
         })
       })
     },

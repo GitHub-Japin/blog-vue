@@ -111,7 +111,8 @@ export default {
     load() {
       fetch("comment?blogId=" + this.comment.blogId).then(res => {
         if (res.status === 500) {
-          this.$notify.success("系统错误")
+          this.$notify.error("出错了")
+          // this.$notify.success("系统错误")
           return {}
         }
         return res.json()
@@ -133,6 +134,10 @@ export default {
           this.replyComment = {}
           this.load()
           this.dialogFormVisible = false
+        }else if (res.status === 500){
+          this.$notify.error("请登录后再评论")
+        } else{
+          this.$notify.error("稍后重试")
         }
       })
     },
@@ -159,6 +164,10 @@ export default {
           this.$notify.success("评论成功")
           this.load();
           this.comment = {}
+        }else if (res.status === 500){
+          this.$notify.error("请登录后再评论")
+        } else{
+          this.$notify.error("稍后重试")
         }
       })
     }

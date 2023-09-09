@@ -36,7 +36,7 @@ axios.interceptors.response.use(response=>{
       store.commit('REMOVE_INFO')//清空token userinfo
       router.push("/login")  //跳转登录页面
     }
-    Element.Message.error(error.message)
+    Element.Message.error(error.message)//全局消息
 
     return Promise.reject(error) //抛出异常, 阻止进入"$axios.post(.."
   }

@@ -72,7 +72,7 @@ export default {
         console.log(res.data+"-------------------")
         console.log(res.data.data+"-------------------")
       }, error => {
-        this.$message.error('请求出错了：' + error)
+        // this.$message.error('请求出错了：' + error)
       })
     },
 
