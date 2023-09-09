@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 
 <style>
 #app {
-  max-width: 1024px;  /*全局最大宽度*/
-  margin: 0 auto;  /*居中*/
+  max-width: 1024px; /*全局最大宽度*/
+  margin: 0 auto; /*居中*/
 }
 </style>

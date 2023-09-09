@@ -11,6 +11,7 @@ import element from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
 // 引入echarts
 import *as echarts from 'echarts'
+
 Vue.prototype.$echarts = echarts
 // 引入axios依赖
 import axios from 'axios'
@@ -22,11 +23,8 @@ import './permission.js' // 路由拦截
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-
-
 //引用全局
 Vue.prototype.$axios = axios
-
 
 Vue.use(mavonEditor)
 Vue.use(element)
@@ -34,6 +32,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  store ,
-  render:h=>h(App)
+  store,
+  render: h => h(App)
 }).$mount('#app')

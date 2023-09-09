@@ -4,7 +4,7 @@ import Element, {Message} from 'element-ui'
 // 路由判断登录 根据路由配置文件的参数
 // 前置路由守卫 //前置拦截
 router.beforeEach((to, from, next) => {
-  console.log(to,from)
+  console.log(to, from)
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限//如果为true
     const token = localStorage.getItem("token")
     console.log("------------" + token)
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to,from)
+  console.log(to, from)
   if (to.meta.requireLogin) { // 判断该路由是否需要登录权限//如果为true
     const token = localStorage.getItem("token")
     // console.log("------------" + token)
@@ -35,9 +35,9 @@ router.beforeEach((to, from, next) => {
       }
     } else {
       next({
-        Element:Message.error("请先登录管理员账号，否则无法跳转"),
+        Element: Message.error("请先登录管理员账号，否则无法跳转"),
         //返回一个异常提示就不会继续往下走了 不+的话 res=>的里面 还是会继续走的
-        return :Promise.reject(response.data.msg)
+        return: Promise.reject(response.data.msg)
       })
     }
   } else {
