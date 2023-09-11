@@ -23,6 +23,16 @@
           </template>
         </el-table-column>
 
+<!--        <el-table-column label="文章评论">
+          <template slot-scope="scope">
+&lt;!&ndash;            <el-button type="text" @click="getCommentContent(scope.row.id)">点击查看</el-button>&ndash;&gt;
+            <router-link type="text" size="small" class="blueBug"
+                         :to="{  name: 'CommentsDetails', params: {blogId: scope.row.id}}">
+              预览
+            </router-link>
+          </template>
+        </el-table-column>-->
+
         <el-table-column label="创建时间" prop="created" width="auto"/>
         <el-table-column label="文章状态">
           <template slot-scope="scope">
@@ -102,6 +112,19 @@ export default {
     getBlogContent(id) {
       this.$axios.get("/blog/getContent", {
         params: {id},
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then(res => {
+        this.$alert(res.data.data, '该文章内容为：', {
+          confirmButtonText: '确定',
+        })
+      }, error => {
+        // this.$message.error('请求出错了：' + error)
+      })
+    },
+    getCommentContent(id) {
+      this.$axios.get("/comment?blogId="+id, {
         headers: {
           'Authorization': localStorage.getItem('token')
         }
