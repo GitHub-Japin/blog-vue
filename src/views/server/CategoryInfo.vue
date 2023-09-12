@@ -202,7 +202,7 @@ export default {
   },
   //初始化
   mounted() {
-    this.isAdmin = this.$store.getters.getUser.id === 1
+    this.isAdmin = this.$store.getters.getUser.id === "1"
     this.init()
   },
   created() {

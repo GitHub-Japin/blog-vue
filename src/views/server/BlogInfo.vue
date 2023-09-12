@@ -196,7 +196,8 @@ export default {
   },
   //初始化
   mounted() {
-    this.isAdmin = this.$store.getters.getUser.id === 1
+    // alert(this.$store.getters.getUser.id)
+    this.isAdmin = this.$store.getters.getUser.id === "1"
     this.init()
   },
   created() {

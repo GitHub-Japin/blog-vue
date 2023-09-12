@@ -160,11 +160,11 @@ export default {
         },
         body: JSON.stringify(this.comment)
       }).then(res => {
-        if (res.status === 200) {
+        if (res.code === 200) {
           this.$notify.success("评论成功")
           this.load();
           this.comment = {}
-        }else if (res.status === 500){
+        }else if (res.code === 500){
           this.$notify.error("请登录后再评论")
         } else{
           this.$notify.error("稍后重试")

@@ -96,7 +96,7 @@ export default {
         this.blog.content = md.render(blog.content)
 
         // 查看是否是登录人  ||登陆人id是1   ----》      是则可以编辑和删除
-        this.ownBlog = (blog.userId === this.$store.getters.getUser.id) || (this.$store.getters.getUser.id === 1)
+        this.ownBlog = (blog.userId === this.$store.getters.getUser.id) || (this.$store.getters.getUser.id === "1")
       })
     }
   }

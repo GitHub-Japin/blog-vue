@@ -34,7 +34,7 @@ export default {
         const data = response.data.data
         console.log(data)
         // 处理后端返回的数据
-        const categoryNames = data.map(item => item.categoryName)
+        const categoryNames = data.map(item => item.name)
         const counts = data.map(item => item.count)
 
         // 使用 ECharts 渲染图表
@@ -90,7 +90,7 @@ export default {
             data: this.echartsData.map(item => {
               return {
                 value: item.count,
-                name: item.categoryName
+                name: item.name
               };
             }),
           }
@@ -105,7 +105,7 @@ export default {
         const data = response.data.data
         console.log(data)
         // 处理后端返回的数据
-        const userNames = data.map(item => item.userName)
+        const userNames = data.map(item => item.name)
         const counts = data.map(item => item.count)
 
         // 使用 ECharts 渲染图表
@@ -161,7 +161,7 @@ export default {
             data: this.echartsUData.map(item => {
               return {
                 value: item.count,
-                name: item.userName
+                name: item.name
               };
             }),
           }
