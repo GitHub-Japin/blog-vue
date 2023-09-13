@@ -129,7 +129,10 @@ export default {
   methods: {
     init() {
       const userInfo = sessionStorage.getItem("userInfo")
-      const username = JSON.parse(userInfo).username//反序列化
+      let username=null;
+      if (userInfo!==null){
+        username = JSON.parse(userInfo).username//反序列化
+      }
       // const name = JSON.stringify(username);//序列化
       if (username === null) {
         this.$message.warning('请先登录账号...')
@@ -298,7 +301,7 @@ export default {
     if (username === null) {
       this.$message.warning('请先登录账号...')
     } else if (username !== "admin") {
-      console.info("--------this.username------------------" + username)
+      // console.info("--------this.username------------------" + username)
       this.$message.warning('当前账号不是管理员，不加载数据')
     }else {
       this.hasLogin= true

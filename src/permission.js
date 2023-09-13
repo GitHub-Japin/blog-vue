@@ -7,7 +7,7 @@ router.beforeEach((to, from, next) => {
   console.log(to, from)
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限//如果为true
     const token = localStorage.getItem("token")
-    console.log("------------" + token)
+    // console.log("------------" + token)
     if (token) { // 判断当前的token是否存在 ； 登录存入的token
       if (to.path === '/login') {
       } else {

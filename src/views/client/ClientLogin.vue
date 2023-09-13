@@ -33,14 +33,14 @@
 
         <el-tab-pane label="邮箱验证登录">
           <!-- 邮箱验证登录表单 -->
-          <el-form ref="emailLoginFormRef" :model="emailLoginForm" :rules="emailLoginFormRules">
+          <el-form ref="emailLoginForm" :model="emailLoginForm" :rules="emailLoginFormRules">
             <!-- 邮箱 -->
             <el-form-item prop="email">
               <el-input placeholder="邮箱" clearable prefix-icon="el-icon-message" v-model="emailLoginForm.email">
               </el-input>
             </el-form-item>
-            <el-form-item prop="pCode">
-              <el-input placeholder="输入下图的验证码" v-model="emailLoginForm.pCode">
+            <el-form-item prop="pcode">
+              <el-input placeholder="输入下图的验证码" v-model="emailLoginForm.pcode">
               </el-input>
             </el-form-item>
             <img src="http://localhost:8081/verify"/>
@@ -104,9 +104,10 @@ export default {
       },
       emailLoginForm: {
         email: '',
-        pCode: '',
+        pcode: '',
         emailCode: ''
       },
+
       emailLoginFormRules: {
         email: [{
           required: true,
@@ -119,17 +120,17 @@ export default {
           }
         ],
 
-        pCode: [{
-          required: true,
+        pcode: [{
+          required: true,//这个不就是必要填写的内容
           message: '请输入图形验证码',
-          trigger: 'blur'
-        }],
+          // trigger: 'blur'
+        },],
 
-        emailCode: [{
+        /*emailCode: [{
           required: true,
           message: '请输入你获取到的验证码',
-          trigger: 'blur'
-        }]
+          // trigger: 'blur'
+        }]*/
       },
       loading: false,
       // 控制获取验证码
@@ -166,7 +167,7 @@ export default {
     submitEmailLoginForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post('/email/login', this.emailLoginForm).then(res => {
+          this.$axios.post('/loginByEmail', this.emailLoginForm).then(res => {
             const jwt = res.headers['authorization']
             const userInfo = res.data.data
 
@@ -187,40 +188,43 @@ export default {
       })
     },
     getEmailValidateCode(formName) {
-      this.$refs[formName].validate((valid) => {
+      // alert(formName)
+      this.$refs[formName].validate((valid) => {//这里和上面没调方法
         if (valid) {
-          this.$axios.get('/sendEmailCode').then(res => {
-            let data = res.data.msg
-            console.log(data)
+          this.$axios.post('/sendEmailCode', this.emailLoginForm).then(res => {
+            if (res.data.code === 200){
+              this.$message.success("发送成功")
+            }
           })
         } else {
+          console.log('error submit!!')
           return false
         }
       })
     },
-  resetForm() {
-    this.ruleForm.username = ''
-    this.ruleForm.password = ''
-  },
-  resetEmailLoginForm() {
-    this.emailLoginForm.email = ''
-    this.emailLoginForm.emailCode = ''
-    this.emailLoginForm.ValidatedCode = ''
-  },
-  zhuye() {
-    this.$router.push('/blogs')
-  },
-  goback() {
+    resetForm() {
+      this.ruleForm.username = ''
+      this.ruleForm.password = ''
+    },
+    resetEmailLoginForm() {
+      this.emailLoginForm.email = ''
+      this.emailLoginForm.emailCode = ''
+      this.emailLoginForm.pcode = ''
+    },
+    zhuye() {
+      this.$router.push('/blogs')
+    },
+    goback() {
 // 这个判断用来解决这种情况，当用户没有上一条路由的历史记录，出现点击返回按钮没有反应时，下
 // 面的代码用来判断有没有上一条路由的历史记录   如果没有则返回首页
-    if (window.history.length <= 1) {
-      this.$router.push({path: "/zh-CN/home"});
-      return false;
-    } else {
-      this.$router.go(-1);
+      if (window.history.length <= 1) {
+        this.$router.push({path: "/zh-CN/home"});
+        return false;
+      } else {
+        this.$router.go(-1);
+      }
     }
   }
-}
 }
 </script>
 
