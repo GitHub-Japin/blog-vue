@@ -9,14 +9,14 @@
           <!-- 账号密码登录表单 -->
           <el-form ref="ruleForm" :model="ruleForm" :rules="rules">
             <!-- 用户名 -->
-            <el-form-item prop="username">
+            <el-form-item prop="username" class="input-container">
               <el-input placeholder="用户名" clearable prefix-icon="el-icon-user-solid"
                         v-model="ruleForm.username">
               </el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item prop="password">
-              <el-input placeholder="密码" type="password" show-password prefix-icon="el-icon-lock"
+            <el-form-item prop="password" class="input-container">
+              <el-input  placeholder="密码" type="password" show-password prefix-icon="el-icon-lock"
                         v-model="ruleForm.password">
               </el-input>
             </el-form-item>
@@ -35,18 +35,18 @@
           <!-- 邮箱验证登录表单 -->
           <el-form ref="emailLoginForm" :model="emailLoginForm" :rules="emailLoginFormRules">
             <!-- 邮箱 -->
-            <el-form-item prop="email">
-              <el-input placeholder="邮箱" clearable prefix-icon="el-icon-message" v-model="emailLoginForm.email">
+            <el-form-item prop="email" class="input-container">
+              <el-input  placeholder="邮箱" clearable prefix-icon="el-icon-message" v-model="emailLoginForm.email">
               </el-input>
             </el-form-item>
-            <el-form-item prop="pcode">
-              <el-input placeholder="输入下图的验证码" v-model="emailLoginForm.pcode">
+            <el-form-item prop="pcode" class="captcha-container">
+              <el-input   placeholder="输入验证码" v-model="emailLoginForm.pcode">
               </el-input>
+              <el-image src="http://localhost:8081/verify"/>
             </el-form-item>
-            <img src="http://localhost:8081/verify"/>
             <!-- 邮箱验证码 -->
-            <el-form-item prop="emailCode">
-              <el-input placeholder="邮箱验证码" prefix-icon="el-icon-key" v-model="emailLoginForm.emailCode">
+            <el-form-item prop="emailCode" class="input-container">
+              <el-input  placeholder="邮箱验证码" prefix-icon="el-icon-key" v-model="emailLoginForm.emailCode">
                 <template #append>
                   <el-button :disabled="disabled" @click="getEmailValidateCode('emailLoginForm')">{{ buttonText }}
                   </el-button>
@@ -62,6 +62,12 @@
               <el-button @click="goback()">后退</el-button>
             </el-form-item>
           </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="第三方登录">
+          <a href="http://localhost:8081/oauth/render">
+            <img class="gitee" src="../../../src/assets/gitee.png" alt="gitee" style="max-width: 50px" @click=""/>
+          </a>
+          <el-button @click="loginGitee">Gitee</el-button>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -136,11 +142,22 @@ export default {
       // 控制获取验证码
       buttonText: '获取验证码',
       disabled: false,
-      duration: 60,
+      duration: 10,
+      time: 0,
       timer: null
     }
   },
   methods: {
+    loginGitee(){
+      // 写全路径是跳到哪里
+      // this.$router.push("/oauth/render")
+
+      this.$axios.get('/oauth/render').then(res => {
+        alert(res)
+      }).catch(err => {
+
+      })
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -182,7 +199,7 @@ export default {
             this.$message.success("登录成功")
           })
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
@@ -197,10 +214,23 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
+      this.time=this.duration
+      let interval=window.setInterval(()=>{
+        if (this.time>0){
+          this.time -=1;
+          this.buttonText=this.time+"时间后重试";
+          this.disabled=true
+        }else {
+          this.buttonText='获取验证码'
+          this.disabled=false
+          clearInterval(interval)
+        }
+      },1000)
+
     },
     resetForm() {
       this.ruleForm.username = ''
@@ -234,22 +264,36 @@ export default {
   background-color: #ffffff;
   color: #333;
   text-align: center;
-  line-height: 60px;
+  /*line-height: 50%;*/
 }
 
 .login_container {
   max-width: 50%;
+  margin: 0 auto;
   text-align: center;
 }
 
 .logo {
-  height: 60%;
+  height: 50%;
   margin-top: 10px;
 }
 
 .login_box {
   backdrop-filter: blur(15px);
   box-shadow: 0 0 5px #fff;
+  text-align: center;
+}
+.input-container{
+  max-width: 50%;
+  margin: 0 auto;
+  padding-bottom: 25px;
+  text-align: center;
+}
+.captcha-container{
+  max-width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 25px;
 }
 
 </style>

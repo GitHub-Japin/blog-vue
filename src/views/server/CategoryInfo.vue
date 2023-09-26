@@ -81,6 +81,11 @@ export default {
   },
   methods: {
     init() {
+      const userInfo = sessionStorage.getItem("userInfo")
+      let username=null;
+      if (userInfo!==null){
+        username = JSON.parse(userInfo).username//反序列化
+      }
       const params = {
         currentPage: this.currentPage,
         pageSize: this.pageSize,

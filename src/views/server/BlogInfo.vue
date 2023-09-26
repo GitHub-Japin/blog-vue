@@ -90,8 +90,9 @@ export default {
   methods: {
     init() {
       const userInfo = sessionStorage.getItem("userInfo")
+      let username=null;
       if (userInfo!==null){
-        const username = JSON.parse(userInfo).username//反序列化
+        username = JSON.parse(userInfo).username//反序列化
       }
       const params = {
         currentPage: this.currentPage,
@@ -99,7 +100,10 @@ export default {
         title: this.input ? this.input : undefined
       }
       this.$axios.get("/blog/page", {
-        params: params
+        params: params,
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
       }).then(res => {
         this.tableData = res.data.data.records || [];
         this.counts = res.data.data.total
@@ -114,8 +118,7 @@ export default {
     },
 
     getBlogContent(id) {
-      this.$axios.get("/blog/getContent", {
-        params: {id},
+      this.$axios.get(`/blog/getContent/${id}`, {
         headers: {
           'Authorization': localStorage.getItem('token')
         }

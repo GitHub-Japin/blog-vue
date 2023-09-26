@@ -22,15 +22,27 @@ export default {
     };
   },
   mounted() {
+    this.init()
     this.getCategoryData()
     this.getData();
     this.getUserData()
     this.getUData()
   },
   methods: {
+    init(){
+      const userInfo = sessionStorage.getItem("userInfo")
+      let username=null;
+      if (userInfo!==null){
+        username = JSON.parse(userInfo).username//反序列化
+      }
+    },
     async getCategoryData() {
       try {
-        const response = await this.$axios.get('/echarts/categoryEcharts')
+        const response = await this.$axios.get('/echarts/categoryEcharts',{
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        })
         const data = response.data.data
         console.log(data)
         // 处理后端返回的数据
@@ -67,8 +79,11 @@ export default {
       }
     },
     async getData() {
-      this.$axios.get("/echarts/categoryEcharts")
-        .then(res => {
+      this.$axios.get("/echarts/categoryEcharts",{
+          headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      }).then(res => {
           this.echartsData = res.data.data;
           this.drawChart();
         })
@@ -101,7 +116,11 @@ export default {
 
     async getUserData() {
       try {
-        const response = await this.$axios.get('/echarts/userEcharts')
+        const response = await this.$axios.get('/echarts/userEcharts',{
+          headers: {
+            'Authorization': localStorage.getItem('token')
+          }
+        })
         const data = response.data.data
         console.log(data)
         // 处理后端返回的数据
@@ -138,7 +157,11 @@ export default {
       }
     },
     async getUData() {
-      this.$axios.get("/echarts/userEcharts")
+      this.$axios.get("/echarts/userEcharts",{
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
+      })
         .then(res => {
           this.echartsUData = res.data.data;
           this.drawUChart();

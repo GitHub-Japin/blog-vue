@@ -12,13 +12,13 @@ module.exports = {
     assetsPublicPath: '/',
 
     // 跨域
-    proxyTable: {
-      '/': {
-        target: 'http://localhost:8081',
-        changeOrigin: true,
-        pathRewrite: { '^/': '' }
-      }
-    },
+    // proxyTable: {
+    //   '/': {
+    //     target: 'http://localhost:8081',
+    //     changeOrigin: true,
+    //     pathRewrite: { '^/': '' }
+    //   }
+    // },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

@@ -7,7 +7,7 @@ import store from './store';
 import router from './router'
 
 //使用全局代理无需配置
-//axios.defaults.baseURL="http://localhost:8081"
+axios.defaults.baseURL="http://localhost:8081"
 
 //配置前置拦截
 axios.interceptors.request.use(config => {

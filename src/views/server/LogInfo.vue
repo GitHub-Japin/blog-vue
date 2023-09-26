@@ -51,13 +51,21 @@ export default {
   },
   methods: {
     init() {
+      const userInfo = sessionStorage.getItem("userInfo")
+      let username=null;
+      if (userInfo!==null){
+        username = JSON.parse(userInfo).username//反序列化
+      }
       const params = {
         currentPage: this.currentPage,
         pageSize: this.pageSize,
         title: this.input ? this.input : undefined
       }
       this.$axios.get("/Log/page", {
-        params: params
+        params: params,
+        headers: {
+          'Authorization': localStorage.getItem('token')
+        }
       }).then(res => {
         this.tableData = res.data.data.records || [];
         this.counts = res.data.data.total
