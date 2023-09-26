@@ -109,7 +109,7 @@ export default {
       this.dialogFormVisible = true
     },
     load() {
-      fetch("comment?blogId=" + this.comment.blogId).then(res => {
+      fetch("http://localhost:8081/comment?blogId=" + this.comment.blogId).then(res => {
         if (res.status === 500) {
           this.$notify.error("出错了")
           // this.$notify.success("系统错误")
@@ -121,7 +121,7 @@ export default {
       })
     },
     saveReply() {
-      fetch("comment", {
+      fetch("http://localhost:8081/comment", {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -129,14 +129,14 @@ export default {
         },
         body: JSON.stringify(this.replyComment)
       }).then(res => {
+        // this.$notify.error(res.code)
+        console.log(res)
         if (res.status === 200) {
           this.$notify.success("评论成功")
           this.replyComment = {}
           this.load()
           this.dialogFormVisible = false
-        }else if (res.status === 500){
-          this.$notify.error("请登录后再评论")
-        } else{
+        }else{
           this.$notify.error("稍后重试")
         }
       })
@@ -152,7 +152,7 @@ export default {
       }
     },
     submit() {
-      fetch("comment", {
+      fetch("http://localhost:8081/comment", {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -160,11 +160,13 @@ export default {
         },
         body: JSON.stringify(this.comment)
       }).then(res => {
-        if (res.code === 200) {
+        console.log(res)
+        // this.$notify.error(res.code)
+        if (res.status === 200) {
           this.$notify.success("评论成功")
           this.load();
           this.comment = {}
-        }else if (res.code === 500){
+        }else if (res.status === 500){
           this.$notify.error("请登录后再评论")
         } else{
           this.$notify.error("稍后重试")

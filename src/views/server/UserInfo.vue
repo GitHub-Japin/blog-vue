@@ -9,20 +9,20 @@
       </el-input>
       <el-button type="primary" v-if="hasLogin" @click="addUser()">+ 新建</el-button>
       <el-button type="primary" v-if="hasLogin" @click="downLoadWithEasyPOI()">+ 导出</el-button>
-      <el-button type="primary" v-if="hasLogin" @click="addUser()">+ 导入</el-button>
+<!--      <el-button type="primary" v-if="hasLogin" @click="addUser()">+ 导入</el-button>-->
     </div>
     <div>
       <el-table :data="tableData">
-        <el-table-column label="用户id" prop="id" width="75"/>
+        <el-table-column label="用户id" prop="id" width="auto"/>
         <el-table-column label="用户名" prop="username" width="auto"/>
-        <el-table-column prop="image" label="头像" align="center">
+        <el-table-column prop="image" label="头像" align="auto">
           <template slot-scope="scope">
             <el-avatar :src="scope.row.avatar"></el-avatar>
           </template>
         </el-table-column>
 
         <el-table-column label="用户邮箱" prop="email" width="auto"/>
-        <el-table-column label="用户密码" prop="password" width="auto"/>
+<!--        <el-table-column label="用户密码" prop="password" width="auto"/>-->
         <el-table-column label="用户状态">
           <template slot-scope="scope">
             <span style="margin-right: 10px;">{{ scope.row.status === 0 ? '启用' : '禁用' }}</span>
@@ -39,7 +39,6 @@
             <el-button type="text" size="small" class="delBut non" @click="deleteUser(scope.row.id)">
               删除
             </el-button>
-
           </template>
         </el-table-column>
       </el-table>
@@ -81,14 +80,11 @@
         <el-button @click="title==='修改用户信息'?update('userForm'):add('userForm')" type="primary">确定</el-button>
       </div>
     </el-dialog>
-
-
   </div>
 </template>
 
 <script>
 import ServerInfo from '../../components/server/ServerInfo'
-
 
 export default {
   name: "UserInfo",

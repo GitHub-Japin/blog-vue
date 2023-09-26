@@ -149,9 +149,6 @@ export default {
   },
   methods: {
     loginGitee(){
-      // 写全路径是跳到哪里
-      // this.$router.push("/oauth/render")
-
       this.$axios.get('/oauth/render').then(res => {
         alert(res)
       }).catch(err => {
