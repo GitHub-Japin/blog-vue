@@ -2,11 +2,6 @@
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     <el-menu-item index="1"><a @click="zhuye">主页</a></el-menu-item>
     <el-menu-item index="2"><a type="success" @click="fbbk">发表博客</a></el-menu-item>
-    <!--    <el-submenu index="11">-->
-    <!--      <template slot="title">账号管理</template>-->
-    <!--      <el-menu-item index="11-1" v-show="!hasLogin" @click="login">登录</el-menu-item>-->
-    <!--      <el-menu-item index="11-1" v-show="hasLogin" @click="logout">退出</el-menu-item>-->
-    <!--    </el-submenu>-->
     <div>
       <el-avatar class="block" :size="50" :src="user.avatar" v-if="hasLogin"
                  style="float:right;">
