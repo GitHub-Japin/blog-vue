@@ -23,7 +23,7 @@
             <!-- 按钮区域 -->
             <el-form-item>
               <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-              <el-button type="primary" @click="">注册</el-button>
+              <el-button type="primary" @click="registerUser()">注册</el-button>
               <el-button type="success" @click="zhuye">主页</el-button>
               <el-button @click="resetForm()">重置</el-button>
               <el-button @click="goback()">后退</el-button>
@@ -75,6 +75,36 @@
       登录即表示您已阅读并同意
       <a href="#">服务条款</a>
     </div>
+    <el-dialog width="550px" :visible.sync="showUserRegisterDialog" :title="title" @close="closeDialog('userForm')">
+      <!--表单单向绑定模型-->
+      <el-form :model="userForm" label-width="140px" label-position="right" :inline="true" :rules="rules"
+               ref="userForm">
+        <el-form-item label="用户名：" prop="username">
+          <!--表单元素双向绑定模型数据-->
+          <el-input placeholder="请输入用户名" v-model="userForm.username"/>
+        </el-form-item>
+        <br/>
+        <el-form-item label="邮箱：" prop="email">
+          <!--表单元素双向绑定模型数据-->
+          <el-input placeholder="请输入邮箱" v-model="userForm.email"/>
+        </el-form-item>
+        <br/>
+        <el-form-item label="头像：" prop="avatar">
+          <el-avatar :src="userForm.avatar"></el-avatar>
+          <el-input placeholder="头像网络链接" v-model="userForm.avatar" clearable/>
+        </el-form-item>
+        <br/>
+        <el-form-item label="密码：" prop="password">
+          <el-input type="password" placeholder="请输入密码" v-model="userForm.password" show-password/>
+        </el-form-item>
+        <br/>
+      </el-form>
+      <div slot="footer">
+        <el-button @click="handleQuery">取消</el-button>
+        <el-button v-if="Edit" @click="reset">重置</el-button>
+        <el-button @click="add('userForm')" type="primary">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -92,6 +122,13 @@ export default {
       callback(new Error('请输入合法的邮箱'))
     };
     return {
+      Edit: true,
+      userForm: {
+        username: '',
+        email: '',
+        avatar: '',
+        password: ''
+      },
       ruleForm: {
         username: 'admin',
         password: '111111'
@@ -131,14 +168,9 @@ export default {
           message: '请输入图形验证码',
           // trigger: 'blur'
         },],
-
-        /*emailCode: [{
-          required: true,
-          message: '请输入你获取到的验证码',
-          // trigger: 'blur'
-        }]*/
       },
       loading: false,
+      showUserRegisterDialog: false,
       // 控制获取验证码
       buttonText: '获取验证码',
       disabled: false,
@@ -153,6 +185,49 @@ export default {
         alert(res)
       }).catch(err => {
 
+      })
+    },
+    closeDialog(formName) {
+      this.$refs[formName].resetFields();
+      this.showUserUpdateDialog = false;
+    },
+    handleQuery() {
+      this.showUserUpdateDialog = false
+    },
+    reset(){
+      this.userForm.username=""
+      this.userForm.password=""
+      this.userForm.email=""
+      this.userForm.avatar=""
+    },
+    registerUser() {
+      this.title = '用户注册'
+      this.userForm = {
+        username: '',
+        email: '',
+        avatar: '',
+        password: ''
+      }
+      this.showUserRegisterDialog = true;
+    },
+    //添加用户信息
+    add(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$axios.post("/user/add", this.userForm, {
+            headers: {
+              'Authorization': localStorage.getItem('token')
+            }
+          }).then(res => {
+            this.$message.success('添加成功！')
+            this.handleQuery()
+          }, error => {
+            // this.$message.error('请求出错了：' + error)
+          })
+        } else {
+          // console.log('error submit!!');
+          return false;
+        }
       })
     },
     submitForm(formName) {

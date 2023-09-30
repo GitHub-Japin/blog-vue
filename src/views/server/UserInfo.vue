@@ -52,7 +52,7 @@
                      @current-change="handleCurrentChange"></el-pagination>
     </div>
 
-    <el-dialog width="550px" :visible.sync="showUserUpdateDialog" :title="title" @close="closeDialog('userForm')">
+    <el-dialog width="550px" :visible.sync="showUserUpdateDialog" @close="closeDialog('userForm')">
       <!--表单单向绑定模型-->
       <el-form :model="userForm" label-width="140px" label-position="right" :inline="true" :rules="rules"
                ref="userForm">
