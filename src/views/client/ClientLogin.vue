@@ -210,23 +210,23 @@ export default {
               this.$message.success("发送成功")
             }
           })
+          this.time=this.duration
+          let interval=window.setInterval(()=>{
+            if (this.time>0){
+              this.time -=1;
+              this.buttonText=this.time+"时间后重试";
+              this.disabled=true
+            }else {
+              this.buttonText='获取验证码'
+              this.disabled=false
+              clearInterval(interval)
+            }
+          },1000)
         } else {
-          // console.log('error submit!!')
+          alert('error submit!!')
           return false
         }
       })
-      this.time=this.duration
-      let interval=window.setInterval(()=>{
-        if (this.time>0){
-          this.time -=1;
-          this.buttonText=this.time+"时间后重试";
-          this.disabled=true
-        }else {
-          this.buttonText='获取验证码'
-          this.disabled=false
-          clearInterval(interval)
-        }
-      },1000)
 
     },
     resetForm() {

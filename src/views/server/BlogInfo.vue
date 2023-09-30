@@ -36,7 +36,9 @@
         <el-table-column label="创建时间" prop="created" width="auto"/>
         <el-table-column label="文章状态">
           <template slot-scope="scope">
-            <span style="margin-right: 10px;">{{ scope.row.status === 0 ? '已发表' : '已下架' }}</span>
+            <span v-if="scope.row.status===1" style="color: crimson;margin-right: 10px;">已下架</span>
+            <span v-if="scope.row.status===0" style="color: #42b983;margin-right: 10px;">已发表</span>
+<!--            <span style="margin-right: 10px;">{{ scope.row.status === 0 ? '已发表' : '已下架' }}</span>-->
           </template>
         </el-table-column>
         <el-table-column label="操作" width="160" align="center" v-if="isAdmin">

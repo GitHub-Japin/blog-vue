@@ -24,7 +24,7 @@
         </el-table-column>
       </el-table>
       <el-pagination class="pageList"
-                     :page-sizes="[5, 10, 20, 30]" :page-size="pageSize"
+                     :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="counts"
                      @size-change="handleSizeChange" :current-page.sync="page"
                      @current-change="handleCurrentChange"></el-pagination>
@@ -68,7 +68,7 @@ export default {
       tableData: [],
       counts: 0,
       currentPage: 1,//默认首页
-      pageSize: 5,//默认页大小
+      pageSize: 10,//默认页大小
       categoryForm: {
         categoryname: ''
       },

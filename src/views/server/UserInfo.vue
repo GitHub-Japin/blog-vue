@@ -25,7 +25,9 @@
 <!--        <el-table-column label="用户密码" prop="password" width="auto"/>-->
         <el-table-column label="用户状态">
           <template slot-scope="scope">
-            <span style="margin-right: 10px;">{{ scope.row.status === 0 ? '启用' : '禁用' }}</span>
+<!--            <span style="margin-right: 10px;">{{ scope.row.status === 0 ? '启用' : '禁用' }}</span>-->
+            <span v-if="scope.row.status===1" style="color: crimson;margin-right: 10px;">禁用</span>
+            <span v-if="scope.row.status===0" style="color: #42b983;margin-right: 10px;">启用</span>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" prop="created" width="auto"/>
@@ -234,7 +236,7 @@ export default {
       this.showUserUpdateDialog = true;
     },
     downLoadWithEasyPOI(){
-      window.open("/user/downLoadWithEasyPOI");
+      window.open("http://localhost:8081/user/downLoadWithEasyPOI");
     },
     deleteUser(id) {// 删除
       this.$confirm('确定删除吗?', '确定删除', {
@@ -261,11 +263,7 @@ export default {
         'cancelButtonText': '取消',
         'type': 'warning'
       }).then(() => {
-        this.$axios.put('/user/updateStatus/', {}, {
-          params: {
-            id: user.id,
-            status: user.status ? '0' : '1'
-          },
+        this.$axios.put(`/user/updateStatus/${user.id}/${user.status ? '0' : '1'}`,{} ,{
           headers: {
             'Authorization': localStorage.getItem('token')
           }
