@@ -9,7 +9,8 @@
 
         <el-link type="Success" @click="toBlog()" class="exit">前往博客页</el-link>
         <!--（登录用户，登出）与登录互斥；showLoginForm控制是否显示登录表单-->
-        <el-link v-if="!hasLogin" type="danger" @click="showLoginForm=true" class="login">登录</el-link>
+        <el-link v-if="!hasLogin" type="danger" @click="showLoginForm=true" class="login">用户名登录</el-link>
+        <el-link v-if="!hasLogin" type="danger" @click="clientLogin" class="login">登录</el-link>
         <el-link v-if="hasLogin" type="danger" @click="logout()" class="logout">登出</el-link>
         <span v-if="hasLogin" class="user">当前用户：{{username}}</span>
         <!--菜单内嵌的i标签，用于设置该菜单前的矩形图标，使用内联样式（已经应用了class样式）-->
@@ -116,6 +117,9 @@ export default {
       }).catch(err=>{
         // this.$message.error('后端服务器无响应！')
       })
+    },
+    clientLogin(){
+      this.$router.push("/login")
     },
     logout() {
       this.$confirm('确定要退出登录吗?', '提示', {
