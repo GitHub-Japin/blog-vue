@@ -65,7 +65,7 @@
         </el-tab-pane>
         <el-tab-pane label="第三方登录">
           <a href="http://localhost:8081/oauth/render">
-            <img class="gitee" src="../../../src/assets/gitee.png" alt="gitee" style="max-width: 50px" @click=""/>
+            <img class="gitee" src="../../../src/assets/gitee.png" alt="gitee" style="max-width: 50px" @click="loginGitee"/>
           </a>
           <el-button @click="loginGitee">Gitee</el-button>
         </el-tab-pane>
@@ -181,8 +181,26 @@ export default {
   },
   methods: {
     loginGitee(){
+      // window.open("http://localhost:8081/oauth/render")
+      //http://localhost:8081/oauth/render
       this.$axios.get('/oauth/render').then(res => {
-        alert(res)
+        alert(res.data.code)
+        alert(res.code)
+        if (res.data.code===200){
+          const jwt = res.headers['authorization']
+          const userInfo = res.data.data
+          // 存储(共享)全局变量jwt和userInfo 使用Store
+          this.$store.commit('SET_TOKEN', jwt)
+          this.$store.commit('SET_USERINFO', userInfo)
+          this.$router.go('/blogs')
+          this.$message.success("登录成功")
+          this.$router.go('/blogs')
+          this.$router.go(-2)
+        }else {
+          this.$router.go(-1)
+          this.$router.go('/blogs')
+          this.$message.success("登录失败")
+        }
       }).catch(err => {
 
       })
@@ -220,7 +238,7 @@ export default {
             }
           }).then(res => {
             this.$message.success('添加成功！')
-            this.handleQuery()
+            this.showUserRegisterDialog=false
           }, error => {
             // this.$message.error('请求出错了：' + error)
           })
